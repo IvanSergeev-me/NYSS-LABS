@@ -1,0 +1,13 @@
+C:\Users\inovo\source\repos\LabaNYSS1\LabaNYSS1\bin\Debug\netcoreapp3.1\LabaNYSS1.exe
+C:\Users\inovo\source\repos\LabaNYSS1\LabaNYSS1\bin\Debug\netcoreapp3.1\LabaNYSS1.deps.json
+C:\Users\inovo\source\repos\LabaNYSS1\LabaNYSS1\bin\Debug\netcoreapp3.1\LabaNYSS1.runtimeconfig.json
+C:\Users\inovo\source\repos\LabaNYSS1\LabaNYSS1\bin\Debug\netcoreapp3.1\LabaNYSS1.runtimeconfig.dev.json
+C:\Users\inovo\source\repos\LabaNYSS1\LabaNYSS1\bin\Debug\netcoreapp3.1\LabaNYSS1.dll
+C:\Users\inovo\source\repos\LabaNYSS1\LabaNYSS1\bin\Debug\netcoreapp3.1\LabaNYSS1.pdb
+C:\Users\inovo\source\repos\LabaNYSS1\LabaNYSS1\obj\Debug\netcoreapp3.1\LabaNYSS1.csprojAssemblyReference.cache
+C:\Users\inovo\source\repos\LabaNYSS1\LabaNYSS1\obj\Debug\netcoreapp3.1\LabaNYSS1.AssemblyInfoInputs.cache
+C:\Users\inovo\source\repos\LabaNYSS1\LabaNYSS1\obj\Debug\netcoreapp3.1\LabaNYSS1.AssemblyInfo.cs
+C:\Users\inovo\source\repos\LabaNYSS1\LabaNYSS1\obj\Debug\netcoreapp3.1\LabaNYSS1.csproj.CoreCompileInputs.cache
+C:\Users\inovo\source\repos\LabaNYSS1\LabaNYSS1\obj\Debug\netcoreapp3.1\LabaNYSS1.dll
+C:\Users\inovo\source\repos\LabaNYSS1\LabaNYSS1\obj\Debug\netcoreapp3.1\LabaNYSS1.pdb
+C:\Users\inovo\source\repos\LabaNYSS1\LabaNYSS1\obj\Debug\netcoreapp3.1\LabaNYSS1.genruntimeconfig.cache
