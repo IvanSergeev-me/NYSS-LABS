@@ -21,7 +21,7 @@ namespace Nyss_lab2_parser
     /// </summary>
     public partial class DataWindow : Window
     {
-        private List<string[]> data = Parser.GetRows();
+       /* private List<string[]> data = Parser.GetRows();
         private string[] headers = new string[] { "Идентификатор угрозы" , "Наименование угрозы" ,
             "Описание угрозы" , "Источник угрозы" , "Объект воздействия угрозы" ,"Нарушение конфиденциальности",
         "Нарушение целостности", "Нарушение доступности"};
@@ -61,6 +61,6 @@ namespace Nyss_lab2_parser
                 }
                
             }
-        }
+        }*/
     }
 }

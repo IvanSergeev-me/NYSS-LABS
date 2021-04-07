@@ -20,18 +20,30 @@ namespace Nyss_lab2_parser
     /// </summary>
     public partial class DataGridWindow : Window
     {
-       /* private List<DataObject> data = Parser.GetRows();
+        private List<DataObject> data = Parser.GetRows();
+        private static ObservableCollection<DataObject> list = new ObservableCollection<DataObject>();
         private string[] headers = new string[] { "Идентификатор угрозы" , "Наименование угрозы" ,
             "Описание угрозы" , "Источник угрозы" , "Объект воздействия угрозы" ,"Нарушение конфиденциальности",
         "Нарушение целостности", "Нарушение доступности"};
         public DataGridWindow()
         {
             InitializeComponent();
-            
-            
-            tableData.ItemsSource = data[0];
+            SynchArrays();
+            foreach (var item in list)
+            {
+                MessageBox.Show(item.ToString());
+            }
+           
+            this.tableData.ItemsSource = list;
 
-        }*/
+        }
+        private void SynchArrays()
+        {
+            foreach(var item in data)
+            {
+                list.Add(item);
+            }
+        }
     }
    
 }
