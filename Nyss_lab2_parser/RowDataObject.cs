@@ -17,7 +17,7 @@ namespace Nyss_lab2_parser
         public string Сonfidentiality { get; set; }
         public string Integrity { get; set; }
         public string Access { get; set; }
-        /*public RowDataObject(string id, string name, string description, string source, string @object, string сonfidentiality, string integrity, string access)
+        public RowDataObject(string id, string name, string description, string source, string @object, string сonfidentiality, string integrity, string access)
         {
             Id = id;
             Name = name;
@@ -27,7 +27,7 @@ namespace Nyss_lab2_parser
             Сonfidentiality = сonfidentiality;
             Integrity = integrity;
             Access = access;
-        }*/
+        }
 
 
         /*private string[] headers = new string[] { "Идентификатор угрозы" , "Наименование угрозы" ,

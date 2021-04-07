@@ -30,7 +30,7 @@ namespace Nyss_lab2_parser
                 int rowStart = 3;
                 int colStart = 1;
                 int countCols = 10;
-                int countRows = 222;
+                //int countRows = 222;
                 //10 x 222
                 
                 wb = excel.Workbooks.Open(path);
@@ -46,9 +46,7 @@ namespace Nyss_lab2_parser
                         newRow.Add(ws.Cells[i, j].Value2.ToString());
 
                     }
-                    rows.Add(new RowDataObject() { Id = newRow.ToArray()[0], Name = newRow.ToArray()[1], Description = newRow.ToArray()[2], Source = newRow.ToArray()[3], Object = newRow.ToArray()[4], Сonfidentiality = newRow.ToArray()[5], Integrity = newRow.ToArray()[6], Access = newRow.ToArray()[7] });
-                    //rows.Add(new DataObject() { Id = "1", Name = "2", Description = "3", Source = "3", Object = "4", Сonfidentiality = "5", Integrity = "7", Access = "8" });
-                    //rows.Add(new RowDataObject(newRow.ToArray()[0], newRow.ToArray()[1], newRow.ToArray()[2], newRow.ToArray()[3], newRow.ToArray()[4], newRow.ToArray()[5], newRow.ToArray()[6], newRow.ToArray()[7]));
+                    rows.Add(new RowDataObject(newRow.ToArray()[0], newRow.ToArray()[1], newRow.ToArray()[2], newRow.ToArray()[3], newRow.ToArray()[4], newRow.ToArray()[5], newRow.ToArray()[6], newRow.ToArray()[7]));
 
                 }
 

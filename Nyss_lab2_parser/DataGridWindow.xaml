@@ -7,14 +7,11 @@
         mc:Ignorable="d"
         Title="DataGridWindow" Height="450" Width="800">
     <Grid>
-        <DataGrid AutoGenerateColumns="False" 
-          Height="349" 
+        <DataGrid AutoGenerateColumns="True" 
+          Height="338" 
           Name="tableData" 
-          VerticalAlignment="Bottom" Margin="0,0,10,70">
+          VerticalAlignment="Top" Background="#FF596CEA" >
             <DataGrid.Columns >
-                <DataGridTextColumn Binding="{Binding Path=A}" MinWidth="50" />
-                <DataGridTextColumn Binding="{Binding Path=B}" MinWidth="50" />
-                <DataGridTextColumn Binding="{Binding Path=C}" MinWidth="50" />
             </DataGrid.Columns>
         </DataGrid>
 
