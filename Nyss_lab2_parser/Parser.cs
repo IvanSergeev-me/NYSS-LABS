@@ -14,8 +14,8 @@ namespace Nyss_lab2_parser
 {
     public class Parser
     {
-        //private static List<string[]> rows = new List<string[]>();
-        private static List<DataObject> rows = new List<DataObject>();
+        
+        private static List<RowDataObject> rows = new List<RowDataObject>();
 
        
         public string PathFile { get; set; }
@@ -36,23 +36,8 @@ namespace Nyss_lab2_parser
                 wb = excel.Workbooks.Open(path);
                
                 ws = wb.Worksheets[1];
-                //MessageBox.Show(ws.Columns.Count.ToString());
-                /*
+          
                 List<string> newRow = new List<string>();
-
-                for (int i = rowStart; i < countRows; i++)
-                {
-                    newRow.Clear();
-                    for (int j = colStart; j < countCols; j++)
-                    {
-                        newRow.Add(ws.Cells[i, j].Value2.ToString());
-                        
-                    }
-                    rows.Add(newRow.ToArray());
-                }*/
-
-                
-                  List<string> newRow = new List<string>();
                 for (int i = rowStart; i < 10; i++)
                 {
                     newRow.Clear();
@@ -61,9 +46,10 @@ namespace Nyss_lab2_parser
                         newRow.Add(ws.Cells[i, j].Value2.ToString());
 
                     }
+                    rows.Add(new RowDataObject() { Id = newRow.ToArray()[0], Name = newRow.ToArray()[1], Description = newRow.ToArray()[2], Source = newRow.ToArray()[3], Object = newRow.ToArray()[4], Сonfidentiality = newRow.ToArray()[5], Integrity = newRow.ToArray()[6], Access = newRow.ToArray()[7] });
+                    //rows.Add(new DataObject() { Id = "1", Name = "2", Description = "3", Source = "3", Object = "4", Сonfidentiality = "5", Integrity = "7", Access = "8" });
+                    //rows.Add(new RowDataObject(newRow.ToArray()[0], newRow.ToArray()[1], newRow.ToArray()[2], newRow.ToArray()[3], newRow.ToArray()[4], newRow.ToArray()[5], newRow.ToArray()[6], newRow.ToArray()[7]));
 
-                    //rows.Add(new DataObject(newRow.ToArray()[0], newRow.ToArray()[1], newRow.ToArray()[2], newRow.ToArray()[3], newRow.ToArray()[4], newRow.ToArray()[5], newRow.ToArray()[6], newRow.ToArray()[7]));
-                    rows.Add(new DataObject() { Id = newRow.ToArray()[0], Name = newRow.ToArray()[1], Description = newRow.ToArray()[2], Source = newRow.ToArray()[3], Object = newRow.ToArray()[4], Сonfidentiality = newRow.ToArray()[5], Integrity = newRow.ToArray()[6], Access = newRow.ToArray()[7]  });
                 }
 
                 OpenParsed();
@@ -80,10 +66,8 @@ namespace Nyss_lab2_parser
             DataGridWindow win2 = new DataGridWindow();
             win2.Show();
         }
-        public static List<DataObject> GetRows()
+        public static List<RowDataObject> GetRows()
         { return rows; }
-       /* public static List<string[]> GetRows()
-        { return rows; }*/
         private static void SetRows(ArrayList value)
         { SetRows(value); }
     }
