@@ -9,7 +9,7 @@
     <Grid>
         <Button x:Name="create_New_File_Button" Content="Создать новую локальную базу" HorizontalAlignment="Left" Margin="278,120,0,0" VerticalAlignment="Top" Width="251"  Background="#FF5675FF" FontWeight="Bold" Foreground="White" Click="CreateLocalBase"/>
         <Button x:Name="use_File_Button" Content="Использовать сущестующую базу" HorizontalAlignment="Left" Margin="278,168,0,0" VerticalAlignment="Top" Width="251" Background="#FF5675FF" FontWeight="Bold" Foreground="White" Click="ParseBase"/>
-        <Label x:Name="label_Debug" Content="" HorizontalAlignment="Center" Margin="10,217,0,0" VerticalAlignment="Top" Width="772" Background="Transparent"/>
+        <Label x:Name="label_Debug" Content="" HorizontalAlignment="Center" Margin="10,217,0,0" VerticalAlignment="Center" Width="772" Background="Transparent"/>
 
     </Grid>
 </Window>

@@ -27,6 +27,7 @@ namespace Nyss_lab2_parser
     {
         public static string URL_TO_BASE = "https://bdu.fstec.ru/files/documents/thrlist.xlsx";
         public static string PATH_TO_SAVE = "../../localbase.xlsx" ;
+        public static string PATH_TO_FILE = @"C:\Users\inovo\source\repos\Nyss_lab2_parser\Nyss_lab2_parser\localbase.xlsx";
 
         public MainWindow()
         {
@@ -43,16 +44,20 @@ namespace Nyss_lab2_parser
             if (File.Exists("../../localbase.xlsx")) label_Debug.Content = "Локальная база данных успешно загружена.";
             else label_Debug.Content = "Не удалось загрузить базу данных из Сети.";
 
-            new Parser(PATH_TO_SAVE);
+            new Parser(PATH_TO_FILE);
             this.Close();
 
 
         }
         private void ParseBase (object sender, RoutedEventArgs e)
         {
+            if (!File.Exists("../../localbase.xlsx")) label_Debug.Content = "База не обнаружена. Попробуйте сначала загрузить новую базу.";
+            else
+            {
+                new Parser(PATH_TO_FILE);
 
-            new Parser(@"C:\Users\inovo\source\repos\Nyss_lab2_parser\Nyss_lab2_parser\localbase.xlsx");
-            this.Close();
+                this.Close();
+            }
             
         }
        

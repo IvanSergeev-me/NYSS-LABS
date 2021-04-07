@@ -22,15 +22,17 @@ namespace Nyss_lab2_parser
         private _Application excel = new _Excel.Application();
         private Workbook wb;
         private Worksheet ws;
+        public Preloader p;
         public Parser(string path)
         {
-           
+            p = new Preloader();
+            p.Show();
             PathFile = path;
             try{
                 int rowStart = 3;
                 int colStart = 1;
                 int countCols = 10;
-                //int countRows = 222;
+                int countRows = 222;
                 //10 x 222
                 
                 wb = excel.Workbooks.Open(path);
@@ -38,7 +40,7 @@ namespace Nyss_lab2_parser
                 ws = wb.Worksheets[1];
           
                 List<string> newRow = new List<string>();
-                for (int i = rowStart; i < 10; i++)
+                for (int i = rowStart; i < countRows; i++)
                 {
                     newRow.Clear();
                     for (int j = colStart; j < countCols; j++)
@@ -51,7 +53,9 @@ namespace Nyss_lab2_parser
                 }
 
                 OpenParsed();
+
                 excel.Quit();
+                p.Close();
             }
             catch
             {
