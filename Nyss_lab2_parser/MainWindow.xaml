@@ -7,9 +7,16 @@
         mc:Ignorable="d"
         Title="Pasrser" Height="450" Width="800">
     <Grid>
-        <Button x:Name="create_New_File_Button" Content="Создать новую локальную базу" HorizontalAlignment="Left" Margin="278,120,0,0" VerticalAlignment="Top" Width="251"  Background="#FF5675FF" FontWeight="Bold" Foreground="White" Click="CreateLocalBase"/>
-        <Button x:Name="use_File_Button" Content="Использовать сущестующую базу" HorizontalAlignment="Left" Margin="278,168,0,0" VerticalAlignment="Top" Width="251" Background="#FF5675FF" FontWeight="Bold" Foreground="White" Click="ParseBase"/>
+        <Grid.Background>
+            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                <GradientStop Color="#FF2457DE" Offset="0"/>
+                <GradientStop Color="#FFE23FAE" Offset="1"/>
+            </LinearGradientBrush>
+        </Grid.Background>
+        <Button x:Name="create_New_File_Button" Content="Создать новую локальную базу" Margin="278,120,263,0" VerticalAlignment="Top"  Background="#FF5675FF" FontWeight="Bold" Foreground="White" Click="CreateLocalBase"/>
+        <Button x:Name="use_File_Button" Content="Использовать сущестующую базу" Margin="278,168,263,0" VerticalAlignment="Top" Background="#FF5675FF" FontWeight="Bold" Foreground="White" Click="ParseBase"/>
         <Label x:Name="label_Debug" Content="" HorizontalAlignment="Center" Margin="10,217,0,0" VerticalAlignment="Center" Width="772" Background="Transparent"/>
+        <Button x:Name="look_Minifised_Base" Content="Посмотреть сокращенную базу"  Margin="278,218,263,0" VerticalAlignment="Top"  Background="#FF5675FF" FontWeight="Bold" Foreground="White" Click="LookMinifised"/>
 
     </Grid>
 </Window>

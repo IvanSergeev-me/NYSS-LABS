@@ -22,38 +22,34 @@ namespace Nyss_lab2_parser
         private _Application excel = new _Excel.Application();
         private Workbook wb;
         private Worksheet ws;
+        private static int rowStart = 3;
+        private static int colStart = 1;
+        private static int countCols = 10;
+        private static int countMinifiedCols = 3;
+        private static int countRows = 10;
+        private bool isMinified = false;
         public Preloader p;
-        public Parser(string path)
+        public Parser(string path, bool isMinified)
         {
             p = new Preloader();
             p.Show();
             PathFile = path;
-            try{
-                int rowStart = 3;
-                int colStart = 1;
-                int countCols = 10;
-                int countRows = 222;
+            this.isMinified = isMinified;
+            try
+            {
+               
                 //10 x 222
                 
                 wb = excel.Workbooks.Open(path);
                
                 ws = wb.Worksheets[1];
-          
-                List<string> newRow = new List<string>();
-                for (int i = rowStart; i < countRows; i++)
-                {
-                    newRow.Clear();
-                    for (int j = colStart; j < countCols; j++)
-                    {
-                        newRow.Add(ws.Cells[i, j].Value2.ToString());
-
-                    }
-                    rows.Add(new RowDataObject(newRow.ToArray()[0], newRow.ToArray()[1], newRow.ToArray()[2], newRow.ToArray()[3], newRow.ToArray()[4], newRow.ToArray()[5], newRow.ToArray()[6], newRow.ToArray()[7]));
-
-                }
+                countRows = ws.Rows.CurrentRegion.EntireRow.Count;
+                //MessageBox.Show(ws.Rows.CurrentRegion.EntireRow.Count.ToString());
+                if (!isMinified) ParseNormal();
+                else ParseMinified();
 
                 OpenParsed();
-
+                
                 excel.Quit();
                 p.Close();
             }
@@ -62,6 +58,51 @@ namespace Nyss_lab2_parser
                 
             }
             
+        }
+        private void ParseNormal()
+        {
+            List<string> newRow = new List<string>();
+            for (int i = rowStart; i <= countRows; i++)
+            {
+                newRow.Clear();
+                for (int j = colStart; j < countCols; j++)
+                {
+                    newRow.Add(ws.Cells[i, j].Value2.ToString());
+
+                }
+                
+                string confidentiality = ConvertBinarToAnswer( newRow.ToArray()[5]);
+                string integrity  = ConvertBinarToAnswer(newRow.ToArray()[6]);
+                string access = ConvertBinarToAnswer(newRow.ToArray()[7]);
+       
+                rows.Add(new RowDataObject(newRow.ToArray()[0], newRow.ToArray()[1], newRow.ToArray()[2], newRow.ToArray()[3], newRow.ToArray()[4], confidentiality, integrity, access));
+
+            }
+        }
+        private void ParseMinified()
+        {
+            List<string> newRow = new List<string>();
+            for (int i = rowStart; i <= countRows; i++)
+            {
+                newRow.Clear();
+                for (int j = colStart; j < countMinifiedCols; j++)
+                {
+                    newRow.Add(ws.Cells[i, j].Value2.ToString());
+
+                }
+                rows.Add(new RowDataObject("УБИ."+newRow.ToArray()[0], newRow.ToArray()[1], null,null,null,null, null,null));
+
+            }
+        }
+        private string ConvertBinarToAnswer(string binar)
+        {
+            if (binar.All(char.IsDigit))
+            {
+                if (binar == "1") return "Да";
+                else if (binar == "0") return "Нет";
+                else return "NaN";
+            }
+            else return "NaN";
         }
         private static void  OpenParsed()
         {

@@ -27,9 +27,10 @@ namespace Nyss_lab2_parser
             Сonfidentiality = сonfidentiality;
             Integrity = integrity;
             Access = access;
+           
         }
 
-
+       
         /*private string[] headers = new string[] { "Идентификатор угрозы" , "Наименование угрозы" ,
    "Описание угрозы" , "Источник угрозы" , "Объект воздействия угрозы" ,"Нарушение конфиденциальности",
 "Нарушение целостности", "Нарушение доступности"};*/

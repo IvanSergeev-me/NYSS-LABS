@@ -6,14 +6,16 @@
         xmlns:local="clr-namespace:Nyss_lab2_parser"
         mc:Ignorable="d"
         Title="DataGridWindow" Height="450" Width="800">
-    <Grid>
+    <Grid Background="#FF30B7DE">
         <DataGrid AutoGenerateColumns="True" 
-          Height="338" 
+          Height="375" 
           Name="tableData" 
+          
           VerticalAlignment="Top" Background="#FF596CEA" >
             <DataGrid.Columns >
             </DataGrid.Columns>
         </DataGrid>
+        <Button x:Name="save_Button" Click="SaveBase" Content="Сохранить" HorizontalAlignment="Left" Margin="41,389,0,0" VerticalAlignment="Top" Width="161" Background="#FF464EFF" FontWeight="Bold" Foreground="White"/>
 
     </Grid>
 </Window>
