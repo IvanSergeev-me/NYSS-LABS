@@ -22,6 +22,7 @@ namespace Nyss_lab2_parser
     /// </summary>
     public partial class DataGridWindow : Window
     {
+        public static string delimiter = "#";
         private List<RowDataObject> data = Parser.GetRows();
         private string[] headers = new string[] { "Идентификатор угрозы" , "Наименование угрозы" ,
             "Описание угрозы" , "Источник угрозы" , "Объект воздействия угрозы" ,"Нарушение конфиденциальности",
@@ -57,15 +58,15 @@ namespace Nyss_lab2_parser
                     foreach (var item in headers)
                     {
 
-                        data = $"{item};";
+                        data = $"{item}{delimiter}";
                         bytes = Encoding.UTF8.GetBytes(data);
                         fs.Write(bytes, 0, bytes.Length);
                     }
                     foreach (var item in items)
                     {
 
-                        data = $"\n{((RowDataObject)item).Id};{((RowDataObject)item).Name};{((RowDataObject)item).Description};" +
-                            $"{((RowDataObject)item).Source};{((RowDataObject)item).Object};{((RowDataObject)item).Сonfidentiality};{((RowDataObject)item).Integrity};{((RowDataObject)item).Access}";
+                        data = $"\n{((RowDataObject)item).Id}{delimiter}{((RowDataObject)item).Name}{delimiter}{((RowDataObject)item).Description}{delimiter}" +
+                            $"{((RowDataObject)item).Source}{delimiter}{((RowDataObject)item).Object}{delimiter}{((RowDataObject)item).Сonfidentiality}{delimiter}{((RowDataObject)item).Integrity}{delimiter}{((RowDataObject)item).Access}";
                         bytes = Encoding.UTF8.GetBytes(data);
                         fs.Write(bytes, 0, bytes.Length);
                     }
