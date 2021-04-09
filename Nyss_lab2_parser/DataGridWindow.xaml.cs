@@ -23,29 +23,65 @@ namespace Nyss_lab2_parser
     public partial class DataGridWindow : Window
     {
         private List<RowDataObject> data = Parser.GetRows();
-        //private static ObservableCollection<RowDataObject> list = new ObservableCollection<RowDataObject>();
         private string[] headers = new string[] { "Идентификатор угрозы" , "Наименование угрозы" ,
             "Описание угрозы" , "Источник угрозы" , "Объект воздействия угрозы" ,"Нарушение конфиденциальности",
         "Нарушение целостности", "Нарушение доступности"};
         public DataGridWindow()
         {
             InitializeComponent();
-            //SynchArrays();
             
             this.tableData.ItemsSource = data;
-           // MessageBox.Show(tableData.Columns.Count.ToString());
-            //tableData.Columns.Count;
 
         }
 
         private void SaveBase(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Saved");
+            ItemCollection items = this.tableData.Items;
+           
+
+
+
             SaveFileDialog saveFileDialog = new SaveFileDialog();
-            //if (saveFileDialog.ShowDialog() == true)
-                //File.WriteAllText(saveFileDialog.FileName, txtEditor.Text);
+            System.IO.FileStream fs;
+            saveFileDialog.Filter = "Text file (*.txt)|*.txt|CSV file (*.csv)|*.csv";
+            if (saveFileDialog.ShowDialog() == true)
+            {
+            
+                fs = (System.IO.FileStream)saveFileDialog.OpenFile();
+                if (fs != null)
+                {
+                    string data = "";
+                    byte[] bytes = Encoding.UTF8.GetBytes(data);
+
+
+                    foreach (var item in headers)
+                    {
+
+                        data = $"{item};";
+                        bytes = Encoding.UTF8.GetBytes(data);
+                        fs.Write(bytes, 0, bytes.Length);
+                    }
+                    foreach (var item in items)
+                    {
+
+                        data = $"\n{((RowDataObject)item).Id};{((RowDataObject)item).Name};{((RowDataObject)item).Description};" +
+                            $"{((RowDataObject)item).Source};{((RowDataObject)item).Object};{((RowDataObject)item).Сonfidentiality};{((RowDataObject)item).Integrity};{((RowDataObject)item).Access}";
+                        bytes = Encoding.UTF8.GetBytes(data);
+                        fs.Write(bytes, 0, bytes.Length);
+                    }
+
+                    fs.Close();
+
+                    MessageBox.Show("Saved");
+                }
+                
+
+
+
+            }
+                
         }
-        /*private void SynchArrays(){foreach(var item in data){list.Add(item);}}*/
+      
     }
    
 }

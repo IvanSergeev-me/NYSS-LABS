@@ -39,6 +39,8 @@ namespace Nyss_lab2_parser
         {
             return $"Я ряд номер {Id}, {Name}, {Description}";
         }
+        public void  aboba() { }
+        
 
     }
 }

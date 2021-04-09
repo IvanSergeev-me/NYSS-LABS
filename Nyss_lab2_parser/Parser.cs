@@ -44,12 +44,13 @@ namespace Nyss_lab2_parser
                
                 ws = wb.Worksheets[1];
                 countRows = ws.Rows.CurrentRegion.EntireRow.Count;
-                //MessageBox.Show(ws.Rows.CurrentRegion.EntireRow.Count.ToString());
+                countCols = ws.Rows.CurrentRegion.EntireColumn.Count;
+                //MessageBox.Show(ws.Rows.CurrentRegion.EntireColumn.Count.ToString());
                 if (!isMinified) ParseNormal();
                 else ParseMinified();
 
                 OpenParsed();
-                
+               
                 excel.Quit();
                 p.Close();
             }
