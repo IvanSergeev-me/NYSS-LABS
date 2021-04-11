@@ -22,16 +22,21 @@ namespace Nyss_lab2_parser
     /// </summary>
     public partial class DataGridWindow : Window
     {
+        private static int firstIndex = 0;
+        private static int lastIndex = 30;
         public static string delimiter = "#";
-        private List<RowDataObject> data = Parser.GetRows();
+        private static List<RowDataObject> data = Parser.GetRows();
+        private static List<RowDataObject> pageData = data.GetRange(firstIndex, 30);
+        
+
         private string[] headers = new string[] { "Идентификатор угрозы" , "Наименование угрозы" ,
             "Описание угрозы" , "Источник угрозы" , "Объект воздействия угрозы" ,"Нарушение конфиденциальности",
         "Нарушение целостности", "Нарушение доступности"};
         public DataGridWindow()
         {
             InitializeComponent();
-            
-            this.tableData.ItemsSource = data;
+           
+            this.tableData.ItemsSource = pageData;
 
         }
 
@@ -82,7 +87,64 @@ namespace Nyss_lab2_parser
             }
                 
         }
-      
+
+        private void GoFirstPage(object sender, RoutedEventArgs e)
+        {
+            lastIndex = 30;
+            firstIndex = 0;
+            SetPage(firstIndex, lastIndex);
+        }
+
+        private void GoPrevPage(object sender, RoutedEventArgs e)
+        {
+            lastIndex = firstIndex;
+            firstIndex -= 30;
+            if (firstIndex < 0)
+            {
+                firstIndex = 0;
+                lastIndex =  30;
+                SetPage(firstIndex, 30);
+            }
+            else
+            {
+                SetPage(firstIndex, 30);
+            }
+        }
+
+        private void GoNextPage(object sender, RoutedEventArgs e)
+        {
+            firstIndex = lastIndex;
+            lastIndex += 30;
+          
+            if (lastIndex > data.Count)
+            {
+               
+                lastIndex = data.Count;
+                firstIndex = data.Count - 30;
+                SetPage(firstIndex, 30);
+             
+            }
+            else if (lastIndex <= data.Count && lastIndex > 0)
+            {
+                
+                SetPage(firstIndex, 30);
+            }
+            
+            
+        }
+
+        private void GoLastPage(object sender, RoutedEventArgs e)
+        {
+            firstIndex = data.Count - 30;
+            lastIndex = data.Count;
+            SetPage(firstIndex, 30);
+        }
+        private void SetPage(int firstIndex, int step)
+        {
+            pageData = data.GetRange(firstIndex, step);
+            this.tableData.ItemsSource = pageData;
+            this.tableData.Items.Refresh();
+        }
     }
    
 }

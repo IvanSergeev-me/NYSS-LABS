@@ -45,9 +45,18 @@ namespace Nyss_lab2_parser
                 ws = wb.Worksheets[1];
                 countRows = ws.Rows.CurrentRegion.EntireRow.Count;
                 countCols = ws.Rows.CurrentRegion.EntireColumn.Count;
-                //MessageBox.Show(ws.Rows.CurrentRegion.EntireColumn.Count.ToString());
-                if (!isMinified) ParseNormal();
-                else ParseMinified();
+                string fileExtention;
+                fileExtention = PathFile.Split('.').Last();
+                if (fileExtention == "xlsx" || fileExtention == "xls")
+                {
+                    if (!isMinified) ParseNormal();
+                    else ParseMinified();
+                }
+                else if (fileExtention == "txt" || fileExtention == "csv")
+                {
+                    ParseCsv();
+                }
+               
 
                 OpenParsed();
                
@@ -94,6 +103,27 @@ namespace Nyss_lab2_parser
                 rows.Add(new RowDataObject("УБИ."+newRow.ToArray()[0], newRow.ToArray()[1], null,null,null,null, null,null));
 
             }
+        }
+        public void ParseCsv()
+        {
+            MessageBox.Show(PathFile);
+            List<string> newRow = new List<string>();
+            using (StreamReader sr = new StreamReader(PathFile))
+            {
+                if (sr.ReadLine() != null)
+                {
+                    MessageBox.Show(sr.ReadLine());
+                }
+                else
+                {
+                    MessageBox.Show("a");
+                    // MessageBox.Show(sr.ReadLine());
+                   
+                }
+                sr.Close();
+            }
+
+            MessageBox.Show(PathFile);
         }
         private string ConvertBinarToAnswer(string binar)
         {
