@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -27,7 +28,7 @@ namespace Nyss_lab2_parser
         public static string delimiter = "#";
         private static List<RowDataObject> data = Parser.GetRows();
         private static List<RowDataObject> pageData = data.GetRange(firstIndex, 30);
-        
+        public static bool IsOpened { get; set; } = false;
 
         private string[] headers = new string[] { "Идентификатор угрозы" , "Наименование угрозы" ,
             "Описание угрозы" , "Источник угрозы" , "Объект воздействия угрозы" ,"Нарушение конфиденциальности",
@@ -35,7 +36,7 @@ namespace Nyss_lab2_parser
         public DataGridWindow()
         {
             InitializeComponent();
-           
+            IsOpened = true;
             this.tableData.ItemsSource = pageData;
 
         }
@@ -71,7 +72,7 @@ namespace Nyss_lab2_parser
                     {
 
                         data = $"\n{((RowDataObject)item).Id}{delimiter}{((RowDataObject)item).Name}{delimiter}{((RowDataObject)item).Description}{delimiter}" +
-                            $"{((RowDataObject)item).Source}{delimiter}{((RowDataObject)item).Object}{delimiter}{((RowDataObject)item).Сonfidentiality}{delimiter}{((RowDataObject)item).Integrity}{delimiter}{((RowDataObject)item).Access}";
+                            $"{((RowDataObject)item).Source}{delimiter}{((RowDataObject)item).Object}{delimiter}{((RowDataObject)item).Confidentiality}{delimiter}{((RowDataObject)item).Integrity}{delimiter}{((RowDataObject)item).Access}";
                         bytes = Encoding.UTF8.GetBytes(data);
                         fs.Write(bytes, 0, bytes.Length);
                     }
@@ -144,6 +145,101 @@ namespace Nyss_lab2_parser
             pageData = data.GetRange(firstIndex, step);
             this.tableData.ItemsSource = pageData;
             this.tableData.Items.Refresh();
+        }
+
+    
+        private void UpdateBase(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                List<RowDataObject> distinctData;
+                List<RowDataObject> oldData = data;
+           
+                
+                WebClient myWebClient = new WebClient();
+                myWebClient.DownloadFile(MainWindow.URL_TO_BASE, MainWindow.PATH_TO_SAVE);
+                new Parser(MainWindow.PATH_TO_FILE, false);
+                List<RowDataObject> newData = Parser.GetRows();
+            
+                MessageBox.Show(newData.Count.ToString()) ;
+                distinctData = GetDistinctData(oldData, newData);
+                MessageBox.Show(distinctData.Count.ToString());
+                MessageBoxButton answer = MessageBoxButton.YesNo;
+                MessageBoxResult result = MessageBox.Show("Обновление прошло успешно. Хотите увидеть отчёт об обновлении?", " Посмотреть отчет?", answer);
+                if (result == MessageBoxResult.Yes)
+                {
+                    UpdateReport updateReport = new UpdateReport();
+                    updateReport.SetData(distinctData);
+                    updateReport.Show();
+
+                }
+            }
+            catch (Exception ee)
+            {
+                MessageBox.Show(ee.Message);
+            }
+            
+        }
+        private List<RowDataObject> GetDistinctData(List<RowDataObject> oldList ,List<RowDataObject> newList)
+        {
+            //string id, string name, string description, string source, string @object, string сonfidentiality, string integrity, string access
+            List<RowDataObject> distinctData = new List<RowDataObject>();
+          
+            for (int i = 0; i < oldList.Count; i++)
+            {
+                
+                bool isRowChanged = false;
+                RowDataObject row = new RowDataObject(oldList[i].Id, oldList[i].Name, oldList[i].Description, oldList[i].Source, oldList[i].Object, oldList[i].Confidentiality, oldList[i].Integrity, oldList[i].Access);
+                if (oldList[i].Id != newList[i].Id )
+                {
+                    row.Id = $"Было: {oldList[i].Id} - Стало: {newList[i].Id}";
+                    isRowChanged = true;
+                }
+                
+                if (oldList[i].Name != newList[i].Name)
+                {
+                    row.Name = $"Было: {oldList[i].Name} - Стало: {newList[i].Name}";
+                    isRowChanged = true;
+                }
+                if (oldList[i].Description != newList[i].Description)
+                {
+                    row.Description = $"Было: {oldList[i].Description} - Стало: {newList[i].Description}";
+                    isRowChanged = true;
+                }
+                if (oldList[i].Source != newList[i].Source)
+                {
+                    row.Source = $"Было: {oldList[i].Source} - Стало: {newList[i].Source}";
+                    isRowChanged = true;
+                }
+                if (oldList[i].Object != newList[i].Object)
+                {
+                    row.Object = $"Было: {oldList[i].Object} - Стало: {newList[i].Object}";
+                    isRowChanged = true;
+                }
+
+                if (oldList[i].Confidentiality != newList[i].Confidentiality)
+                {
+                    row.Confidentiality = $"Было: {oldList[i].Confidentiality} - Стало: {newList[i].Confidentiality}";
+                    isRowChanged = true;
+                }
+                if (oldList[i].Integrity != newList[i].Integrity)
+                {
+                    row.Integrity = $"Было: {oldList[i].Integrity} - Стало: {newList[i].Integrity}";
+                    isRowChanged = true;
+                }
+                if (oldList[i].Access != newList[i].Access)
+                {
+                    row.Access = $"Было: {oldList[i].Access} - Стало: {newList[i].Access}";
+                    isRowChanged = true;
+                }
+                if (isRowChanged)
+                {
+                    distinctData.Add(row);
+                }
+               
+            }
+
+            return distinctData;
         }
     }
    

@@ -14,7 +14,7 @@ namespace Nyss_lab2_parser
         public string Description { get; set; }
         public string Source { get; set; }
         public string Object { get; set; }
-        public string Сonfidentiality { get; set; }
+        public string Confidentiality { get; set; }
         public string Integrity { get; set; }
         public string Access { get; set; }
         public RowDataObject(string id, string name, string description, string source, string @object, string сonfidentiality, string integrity, string access)
@@ -24,7 +24,7 @@ namespace Nyss_lab2_parser
             Description = description;
             Source = source;
             Object = @object;
-            Сonfidentiality = сonfidentiality;
+            Confidentiality = сonfidentiality;
             Integrity = integrity;
             Access = access;
            
@@ -39,7 +39,7 @@ namespace Nyss_lab2_parser
         {
             return $"Я ряд номер {Id}, {Name}, {Description}";
         }
-        public void  aboba() { }
+        
         
 
     }

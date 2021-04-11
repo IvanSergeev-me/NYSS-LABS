@@ -36,6 +36,7 @@ namespace Nyss_lab2_parser
             InitializeComponent();
             CheckBaseExists();
         }
+        //Проверка наличия базы данных при входе
         private void CheckBaseExists()
         {
 
@@ -46,28 +47,22 @@ namespace Nyss_lab2_parser
                 if(result == MessageBoxResult.Yes)
                 {
                     DownloadBase();
+                    this.Close();
                 }
-                else
-                {
-                    setErrorMessage(errorMessage);
-                }
+                else{setErrorMessage(errorMessage);}
             }
             else
             {
                 MessageBoxButton answer = MessageBoxButton.YesNo;
-                MessageBoxResult result = MessageBox.Show("Базы данных обнаружена.", " Начать загрузку?", answer);
+                MessageBoxResult result = MessageBox.Show("Базы данных обнаружена.", "Использовать существующую базу данных?", answer);
                 if (result == MessageBoxResult.Yes)
                 {
                     new Parser(PATH_TO_FILE, false);
-
                     this.Close();
                 }
             }
         }
-        private void CreateLocalBase(object sender, RoutedEventArgs e)
-        {
-            DownloadBase();
-        }
+       
         private void DownloadBase()
         {
             WebClient myWebClient = new WebClient();
@@ -76,44 +71,42 @@ namespace Nyss_lab2_parser
 
             if (File.Exists(PATH_TO_SAVE)) setErrorMessage("Локальная база данных успешно загружена.");
             else setErrorMessage("Не удалось загрузить базу данных из Сети.");
-
             new Parser(PATH_TO_FILE, false);
+            
+        }
+        //Кнопка
+        private void CreateLocalBase(object sender, RoutedEventArgs e)
+        {
+            if (File.Exists(PATH_TO_SAVE))
+            {
+                MessageBox.Show("База данных уже существует. Сейчас произойдет обновление базы данных.");
+            }
+            DownloadBase();
+
             this.Close();
         }
+        //Кнопка
         private void ParseBase (object sender, RoutedEventArgs e)
         {
-            /*
-            OpenFileDialog openFileDialog = new OpenFileDialog();
-			if(openFileDialog.ShowDialog() == true)
-				txtEditor.Text = File.ReadAllText(openFileDialog.FileName);
-            */
-            /*
-            if (!File.Exists(PATH_TO_SAVE)) setErrorMessage(errorMessage);
-             else
-             {
-                 new Parser(PATH_TO_FILE, false);
-
-                 this.Close();
-             }
-            */
+            
             Parse(false);
-
-
+           
+            this.Close();
         }
+        //Кнопка
         private void LookMinifised(object sender, RoutedEventArgs e)
         {
             Parse(true);
+           
+            this.Close();
         }
         private void Parse(bool isMinified)
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
             openFileDialog.Filter = "Excel file (*.xlsx)|*.xlsx|Text file (*.txt)|*.txt|CSV file (*.csv)|*.csv";
             if (openFileDialog.ShowDialog() == true)
-            {
-                
-                new Parser(openFileDialog.FileName, isMinified);
-
-                this.Close();
+            {  
+                new Parser(openFileDialog.FileName, isMinified); 
             }
 
         }

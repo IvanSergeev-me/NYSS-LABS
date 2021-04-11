@@ -14,8 +14,8 @@ namespace Nyss_lab2_parser
 {
     public class Parser
     {
-        
-        private static List<RowDataObject> rows = new List<RowDataObject>();
+
+        private static List<RowDataObject> rows;
 
        
         public string PathFile { get; set; }
@@ -33,6 +33,7 @@ namespace Nyss_lab2_parser
         {
             p = new Preloader();
             p.Show();
+            rows = new List<RowDataObject>();
             PathFile = path;
             this.isMinified = isMinified;
             try
@@ -56,10 +57,8 @@ namespace Nyss_lab2_parser
                 {
                     ParseCsv();
                 }
-               
 
-                OpenParsed();
-               
+                if (!DataGridWindow.IsOpened) OpenParsed();
                 excel.Quit();
                 p.Close();
             }
@@ -77,6 +76,7 @@ namespace Nyss_lab2_parser
                 newRow.Clear();
                 for (int j = colStart; j < countCols; j++)
                 {
+                    //if (ws.Cells[i, j].Value2.ToString() == null) MessageBox.Show("Aboba");
                     newRow.Add(ws.Cells[i, j].Value2.ToString());
 
                 }
@@ -104,6 +104,7 @@ namespace Nyss_lab2_parser
 
             }
         }
+        //In developing
         public void ParseCsv()
         {
             MessageBox.Show(PathFile);
@@ -135,7 +136,7 @@ namespace Nyss_lab2_parser
             }
             else return "NaN";
         }
-        private static void  OpenParsed()
+       private static void OpenParsed()
         {
             DataGridWindow win2 = new DataGridWindow();
             win2.Show();
