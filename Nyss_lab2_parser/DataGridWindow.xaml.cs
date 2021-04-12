@@ -164,10 +164,10 @@ namespace Nyss_lab2_parser
                 
                 distinctData = GetDistinctData(oldData, newData);
                 data = newData;
-                pageData = data.GetRange(0, 30);
+                SetPage(0,30);
                 tableData.Items.Refresh();
                 MessageBoxButton answer = MessageBoxButton.YesNo;
-                MessageBoxResult result = MessageBox.Show($"Обновление прошло успешно. Всего строк изменено: {distinctData.Count} Хотите увидеть отчёт об обновлении?", " Посмотреть отчет?", answer);
+                MessageBoxResult result = MessageBox.Show($"Статус обновления: Успешно. Всего строк изменено: {distinctData.Count} Хотите увидеть отчёт об обновлении?", " Посмотреть отчет?", answer);
                 if (result == MessageBoxResult.Yes)
                 {
                     UpdateReport updateReport = new UpdateReport();
@@ -178,7 +178,7 @@ namespace Nyss_lab2_parser
             }
             catch (Exception ee)
             {
-                MessageBox.Show(ee.Message);
+                MessageBox.Show("Статус обновления: Ошибка. " + ee.Message);
             }
             
         }
@@ -192,7 +192,7 @@ namespace Nyss_lab2_parser
            
             if (oldList.Count > newList.Count)
             {
-                MessageBox.Show(oldList.Count.ToString() + " aaa " + newList.Count.ToString());
+                
                 for (int i = 0; i < newList.Count-1; i++)
                 {
 

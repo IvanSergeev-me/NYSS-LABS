@@ -79,11 +79,15 @@ namespace Nyss_lab2_parser
         {
             if (File.Exists(PATH_TO_SAVE))
             {
-                MessageBox.Show("База данных уже существует. Сейчас произойдет обновление базы данных.");
+                setErrorMessage("База данных уже существует. Воспользуйтесь существующей.");
             }
-            DownloadBase();
+            else
+            {
+                DownloadBase();
 
-            this.Close();
+                this.Close();
+            }
+            
         }
         //Кнопка
         private void ParseBase (object sender, RoutedEventArgs e)

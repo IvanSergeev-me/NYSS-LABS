@@ -8,19 +8,16 @@
         Title="DataGridWindow" Height="450" Width="800">
     <Grid Background="#FF30B7DE">
         <DataGrid AutoGenerateColumns="True" 
-          Height="375" 
-          Name="tableData" 
-          
-          VerticalAlignment="Top" Background="#FF596CEA" >
+          Name="tableData" Background="#FF596CEA" Margin="0,0,0,44" >
             <DataGrid.Columns >
             </DataGrid.Columns>
         </DataGrid>
-        <Button x:Name="save_Button" Click="SaveBase" Content="Сохранить" HorizontalAlignment="Left" Margin="41,389,0,0" VerticalAlignment="Top" Width="161" Background="#FF464EFF" FontWeight="Bold" Foreground="White"/>
-        <Button x:Name="button_Prev" Content="Назад" HorizontalAlignment="Left" Margin="322,389,0,0" VerticalAlignment="Top" Width="75" Click="GoPrevPage"/>
-        <Button x:Name="button_Next" Content="Вперед" HorizontalAlignment="Left" Margin="413,389,0,0" VerticalAlignment="Top" Width="75" Click="GoNextPage"/>
-        <Button x:Name="button_First" Content="Первая" HorizontalAlignment="Left" Margin="242,389,0,0" VerticalAlignment="Top" Width="75" Click="GoFirstPage"/>
-        <Button x:Name="button_Last" Content="Последняя" HorizontalAlignment="Left" Margin="493,389,0,0" VerticalAlignment="Top" Width="75" Click="GoLastPage"/>
-        <Button x:Name="save_Button_Copy" Click="UpdateBase" Content="Обновить" Margin="604,389,27,0" Background="#FF464EFF" FontWeight="Bold" Foreground="White" Height="20" VerticalAlignment="Top"/>
+        <Button x:Name="save_Button" Click="SaveBase" Content="Сохранить" HorizontalAlignment="Left" Margin="41,0,0,10" Width="161" Background="#FF464EFF" FontWeight="Bold" Foreground="White" Height="20" VerticalAlignment="Bottom"/>
+        <Button x:Name="button_Prev" Content="Назад" HorizontalAlignment="Left" Margin="322,0,0,10" Width="75" Click="GoPrevPage" Height="20" VerticalAlignment="Bottom"/>
+        <Button x:Name="button_Next" Content="Вперед" HorizontalAlignment="Left" Margin="413,0,0,10" Width="75" Click="GoNextPage" Height="20" VerticalAlignment="Bottom"/>
+        <Button x:Name="button_First" Content="Первая" HorizontalAlignment="Left" Margin="242,0,0,10" Width="75" Click="GoFirstPage" Height="20" VerticalAlignment="Bottom"/>
+        <Button x:Name="button_Last" Content="Последняя" HorizontalAlignment="Left" Margin="493,0,0,10" Width="75" Click="GoLastPage" Height="20" VerticalAlignment="Bottom"/>
+        <Button x:Name="save_Button_Copy" Click="UpdateBase" Content="Обновить" Margin="604,0,0,10" Background="#FF464EFF" FontWeight="Bold" Foreground="White" HorizontalAlignment="Left" Width="161" Height="20" VerticalAlignment="Bottom"/>
 
     </Grid>
 </Window>

@@ -24,9 +24,9 @@ namespace Nyss_lab2_parser
         private Worksheet ws;
         private static int rowStart = 3;
         private static int colStart = 1;
-        private static int countCols = 10;
+        private static int countCols;
         private static int countMinifiedCols = 3;
-        private static int countRows = 10;
+        private static int countRows;
         private bool isMinified = false;
         public Preloader p;
         public Parser(string path, bool isMinified)
@@ -39,7 +39,7 @@ namespace Nyss_lab2_parser
             try
             {
                
-                //10 x 222
+                
                 
                 wb = excel.Workbooks.Open(path);
                
@@ -103,6 +103,13 @@ namespace Nyss_lab2_parser
                 newRow.Clear();
                 for (int j = colStart; j < countMinifiedCols; j++)
                 {
+                    if (ws.Cells[i, j].Value2 == null)
+                    {
+                        newRow.Add("");
+                        continue;
+
+                    }
+
                     newRow.Add(ws.Cells[i, j].Value2.ToString());
 
                 }
