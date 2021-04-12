@@ -76,7 +76,13 @@ namespace Nyss_lab2_parser
                 newRow.Clear();
                 for (int j = colStart; j < countCols; j++)
                 {
-                    if (ws.Cells[i, j].Value2 == null) MessageBox.Show("Aboba");
+                    if (ws.Cells[i, j].Value2 == null) 
+                    {
+                        newRow.Add("");
+                        continue;
+                        
+                    }
+
                     newRow.Add(ws.Cells[i, j].Value2.ToString());
 
                 }

@@ -43,7 +43,7 @@ namespace Nyss_lab2_parser
 
         private void SaveBase(object sender, RoutedEventArgs e)
         {
-            ItemCollection items = this.tableData.Items;
+            List<RowDataObject> items = data;
            
 
 
@@ -57,23 +57,23 @@ namespace Nyss_lab2_parser
                 fs = (System.IO.FileStream)saveFileDialog.OpenFile();
                 if (fs != null)
                 {
-                    string data = "";
-                    byte[] bytes = Encoding.UTF8.GetBytes(data);
+                    string dataStr = "";
+                    byte[] bytes = Encoding.UTF8.GetBytes(dataStr);
 
 
                     foreach (var item in headers)
                     {
 
-                        data = $"{item}{delimiter}";
-                        bytes = Encoding.UTF8.GetBytes(data);
+                        dataStr = $"{item}{delimiter}";
+                        bytes = Encoding.UTF8.GetBytes(dataStr);
                         fs.Write(bytes, 0, bytes.Length);
                     }
                     foreach (var item in items)
                     {
 
-                        data = $"\n{((RowDataObject)item).Id}{delimiter}{((RowDataObject)item).Name}{delimiter}{((RowDataObject)item).Description}{delimiter}" +
+                        dataStr = $"\n{((RowDataObject)item).Id}{delimiter}{((RowDataObject)item).Name}{delimiter}{((RowDataObject)item).Description}{delimiter}" +
                             $"{((RowDataObject)item).Source}{delimiter}{((RowDataObject)item).Object}{delimiter}{((RowDataObject)item).Confidentiality}{delimiter}{((RowDataObject)item).Integrity}{delimiter}{((RowDataObject)item).Access}";
-                        bytes = Encoding.UTF8.GetBytes(data);
+                        bytes = Encoding.UTF8.GetBytes(dataStr);
                         fs.Write(bytes, 0, bytes.Length);
                     }
 
@@ -193,7 +193,7 @@ namespace Nyss_lab2_parser
             if (oldList.Count > newList.Count)
             {
                 MessageBox.Show(oldList.Count.ToString() + " aaa " + newList.Count.ToString());
-                for (int i = 0; i < newList.Count; i++)
+                for (int i = 0; i < newList.Count-1; i++)
                 {
 
                     bool isRowChanged = false;
