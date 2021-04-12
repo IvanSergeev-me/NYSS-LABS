@@ -27,6 +27,7 @@ namespace Nyss_lab2_parser
         {
             this.tableData.ItemsSource = list;
             this.tableData.Items.Refresh();
+            
         }
     }
 }

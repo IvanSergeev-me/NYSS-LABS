@@ -161,11 +161,13 @@ namespace Nyss_lab2_parser
                 new Parser(MainWindow.PATH_TO_FILE, false);
                 List<RowDataObject> newData = Parser.GetRows();
             
-                MessageBox.Show(newData.Count.ToString()) ;
+                
                 distinctData = GetDistinctData(oldData, newData);
-                MessageBox.Show(distinctData.Count.ToString());
+                data = newData;
+                pageData = data.GetRange(0, 30);
+                tableData.Items.Refresh();
                 MessageBoxButton answer = MessageBoxButton.YesNo;
-                MessageBoxResult result = MessageBox.Show("Обновление прошло успешно. Хотите увидеть отчёт об обновлении?", " Посмотреть отчет?", answer);
+                MessageBoxResult result = MessageBox.Show($"Обновление прошло успешно. Всего строк изменено: {distinctData.Count} Хотите увидеть отчёт об обновлении?", " Посмотреть отчет?", answer);
                 if (result == MessageBoxResult.Yes)
                 {
                     UpdateReport updateReport = new UpdateReport();
@@ -180,65 +182,154 @@ namespace Nyss_lab2_parser
             }
             
         }
+      
         private List<RowDataObject> GetDistinctData(List<RowDataObject> oldList ,List<RowDataObject> newList)
         {
             //string id, string name, string description, string source, string @object, string сonfidentiality, string integrity, string access
             List<RowDataObject> distinctData = new List<RowDataObject>();
-          
-            for (int i = 0; i < oldList.Count; i++)
+            string itIsNew = "Этот ряд совершенно новый: ";
+            string notChanged = "Нет изменений: ";
+           
+            if (oldList.Count > newList.Count)
             {
-                
-                bool isRowChanged = false;
-                RowDataObject row = new RowDataObject(oldList[i].Id, oldList[i].Name, oldList[i].Description, oldList[i].Source, oldList[i].Object, oldList[i].Confidentiality, oldList[i].Integrity, oldList[i].Access);
-                if (oldList[i].Id != newList[i].Id )
+                MessageBox.Show(oldList.Count.ToString() + " aaa " + newList.Count.ToString());
+                for (int i = 0; i < newList.Count; i++)
                 {
-                    row.Id = $"Было: {oldList[i].Id} - Стало: {newList[i].Id}";
-                    isRowChanged = true;
-                }
-                
-                if (oldList[i].Name != newList[i].Name)
-                {
-                    row.Name = $"Было: {oldList[i].Name} - Стало: {newList[i].Name}";
-                    isRowChanged = true;
-                }
-                if (oldList[i].Description != newList[i].Description)
-                {
-                    row.Description = $"Было: {oldList[i].Description} - Стало: {newList[i].Description}";
-                    isRowChanged = true;
-                }
-                if (oldList[i].Source != newList[i].Source)
-                {
-                    row.Source = $"Было: {oldList[i].Source} - Стало: {newList[i].Source}";
-                    isRowChanged = true;
-                }
-                if (oldList[i].Object != newList[i].Object)
-                {
-                    row.Object = $"Было: {oldList[i].Object} - Стало: {newList[i].Object}";
-                    isRowChanged = true;
-                }
 
-                if (oldList[i].Confidentiality != newList[i].Confidentiality)
-                {
-                    row.Confidentiality = $"Было: {oldList[i].Confidentiality} - Стало: {newList[i].Confidentiality}";
-                    isRowChanged = true;
+                    bool isRowChanged = false;
+                    string rowId = notChanged + oldList[i].Id;
+                    string rowName = notChanged + oldList[i].Name;
+                    string rowDesc = notChanged + oldList[i].Description;
+                    string rowSrc = notChanged + oldList[i].Source;
+                    string rowObj = notChanged + oldList[i].Object;
+                    string rowConf = notChanged + oldList[i].Confidentiality;
+                    string rowInt = notChanged + oldList[i].Integrity;
+                    string rowAccess = notChanged + oldList[i].Access;
+                    RowDataObject row = new RowDataObject(rowId, rowName, rowDesc, rowSrc, rowObj, rowConf, rowInt,rowAccess);
+
+                    if (oldList[i].Id != newList[i].Id)
+                    {
+                        row.Id = $"Было: {oldList[i].Id} - Стало: {newList[i].Id}";
+                        isRowChanged = true;
+                    }
+
+                    if (oldList[i].Name != newList[i].Name)
+                    {
+                        row.Name = $"Было: {oldList[i].Name} - Стало: {newList[i].Name}";
+                        isRowChanged = true;
+                    }
+                    if (oldList[i].Description != newList[i].Description)
+                    {
+                        row.Description = $"Было: {oldList[i].Description} - Стало: {newList[i].Description}";
+                        isRowChanged = true;
+                    }
+                    if (oldList[i].Source != newList[i].Source)
+                    {
+                        row.Source = $"Было: {oldList[i].Source} - Стало: {newList[i].Source}";
+                        isRowChanged = true;
+                    }
+                    if (oldList[i].Object != newList[i].Object)
+                    {
+                        row.Object = $"Было: {oldList[i].Object} - Стало: {newList[i].Object}";
+                        isRowChanged = true;
+                    }
+
+                    if (oldList[i].Confidentiality != newList[i].Confidentiality)
+                    {
+                        row.Confidentiality = $"Было: {oldList[i].Confidentiality} - Стало: {newList[i].Confidentiality}";
+                        isRowChanged = true;
+                    }
+                    if (oldList[i].Integrity != newList[i].Integrity)
+                    {
+                        row.Integrity = $"Было: {oldList[i].Integrity} - Стало: {newList[i].Integrity}";
+                        isRowChanged = true;
+                    }
+                    if (oldList[i].Access != newList[i].Access)
+                    {
+                        row.Access = $"Было: {oldList[i].Access} - Стало: {newList[i].Access}";
+                        isRowChanged = true;
+                    }
+                    if (isRowChanged)
+                    {
+                        distinctData.Add(row);
+                    }
                 }
-                if (oldList[i].Integrity != newList[i].Integrity)
-                {
-                    row.Integrity = $"Было: {oldList[i].Integrity} - Стало: {newList[i].Integrity}";
-                    isRowChanged = true;
-                }
-                if (oldList[i].Access != newList[i].Access)
-                {
-                    row.Access = $"Было: {oldList[i].Access} - Стало: {newList[i].Access}";
-                    isRowChanged = true;
-                }
-                if (isRowChanged)
-                {
-                    distinctData.Add(row);
-                }
-               
             }
+            else
+            {
+                for (int i = 0; i < oldList.Count; i++)
+                {
 
+                    bool isRowChanged = false;
+                    string rowId = notChanged + oldList[i].Id;
+                    string rowName = notChanged + oldList[i].Name;
+                    string rowDesc = notChanged + oldList[i].Description;
+                    string rowSrc = notChanged + oldList[i].Source;
+                    string rowObj = notChanged + oldList[i].Object;
+                    string rowConf = notChanged + oldList[i].Confidentiality;
+                    string rowInt = notChanged + oldList[i].Integrity;
+                    string rowAccess = notChanged + oldList[i].Access;
+                    RowDataObject row = new RowDataObject(rowId, rowName, rowDesc, rowSrc, rowObj, rowConf, rowInt, rowAccess);
+
+                    if (oldList[i].Id != newList[i].Id)
+                    {
+                        row.Id = $"Было: {oldList[i].Id} - Стало: {newList[i].Id}";
+                        isRowChanged = true;
+                    }
+
+                    if (oldList[i].Name != newList[i].Name)
+                    {
+                        row.Name = $"Было: {oldList[i].Name} - Стало: {newList[i].Name}";
+                        isRowChanged = true;
+                    }
+                    if (oldList[i].Description != newList[i].Description)
+                    {
+                        row.Description = $"Было: {oldList[i].Description} - Стало: {newList[i].Description}";
+                        isRowChanged = true;
+                    }
+                    if (oldList[i].Source != newList[i].Source)
+                    {
+                        row.Source = $"Было: {oldList[i].Source} - Стало: {newList[i].Source}";
+                        isRowChanged = true;
+                    }
+                    if (oldList[i].Object != newList[i].Object)
+                    {
+                        row.Object = $"Было: {oldList[i].Object} - Стало: {newList[i].Object}";
+                        isRowChanged = true;
+                    }
+
+                    if (oldList[i].Confidentiality != newList[i].Confidentiality)
+                    {
+                        row.Confidentiality = $"Было: {oldList[i].Confidentiality} - Стало: {newList[i].Confidentiality}";
+                        isRowChanged = true;
+                    }
+                    if (oldList[i].Integrity != newList[i].Integrity)
+                    {
+                        row.Integrity = $"Было: {oldList[i].Integrity} - Стало: {newList[i].Integrity}";
+                        isRowChanged = true;
+                    }
+                    if (oldList[i].Access != newList[i].Access)
+                    {
+                        row.Access = $"Было: {oldList[i].Access} - Стало: {newList[i].Access}";
+                        isRowChanged = true;
+                    }
+                    if (isRowChanged)
+                    {
+                        distinctData.Add(row);
+                    }
+
+                }
+                if (newList.Count > oldList.Count)
+                {
+                    for (int i = oldList.Count; i < newList.Count; i++)
+                    {
+                        
+                        RowDataObject row = new RowDataObject(itIsNew + newList[i].Id, newList[i].Name, newList[i].Description, newList[i].Source, newList[i].Object, newList[i].Confidentiality, newList[i].Integrity, newList[i].Access);
+                        distinctData.Add(row);
+                    }
+                }
+            }
+            
             return distinctData;
         }
     }
