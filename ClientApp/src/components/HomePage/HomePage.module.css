@@ -1,0 +1,83 @@
+﻿.header_title_common
+{
+    text-align:center;
+    font-size:2em;
+}
+.header_text_common {
+    text-align: center;
+    
+}
+.homepage_wrapper {
+}
+
+.Filepicker_wrapper {
+    position:relative;
+    width: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.Filepicker_wrapper div {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+}
+
+.filepicker_button {
+    margin-top:1em;
+    width: 30%;
+    text-align: center;
+    outline: none !important;
+    border: none;
+    background: #008000;
+    color: white;
+    border-radius: 1em;
+    padding: 1em;
+    font-weight: 600;
+    font-size: 1.1em;
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+    transition-property: all;
+}
+.filepicker_input {
+    margin-top: 1em;
+    width: 30%;
+    text-align: center;
+    outline: none !important;
+    border: none;
+    background: #008000;
+    color: white;
+    border-radius: 1em;
+    padding: 1em;
+    font-weight: 600;
+    font-size: 1.1em;
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+    transition-property: all;
+    
+}
+
+    .filepicker_button:hover {
+        transition: 0.3s;
+        background: rgb(128,255,68);
+       
+    }
+.Form_wrapper__input {
+    width: 100%;
+    padding: 1em;
+    border: 1px solid black;
+    border-radius: 1em;
+    margin:1em 0;
+}
+.Form_wrapper__textarea {
+    width: 100%;
+    min-height:250px;
+    border: 1px solid black;
+    border-radius: 1em;
+    padding:1em;
+}
+.Form_wrapper{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+}
