@@ -13,7 +13,7 @@ const HomePage = (props) => {
             <div>
                 {!appState.title ? "Загрузите файл с помощью кнопки ниже. Принимаются только файлы с расширением docx или txt." : appState.title}
             </div>
-            <Filepicker setInit={props.setInit} handleFileChange={props.handleFileChange} extractWordRawText={props.extractWordRawText}/>
+            <Filepicker  setInit={props.setInit} handleFileChange={props.handleFileChange} extractWordRawText={props.extractWordRawText}/>
         </div>
         
     );

@@ -1,8 +1,9 @@
-﻿/*import React from 'react';
+﻿import React from 'react';
 import s from '../HomePage.module.css';
 import { FilePicker } from 'react-file-picker';
 
 const Filepicker = (props) => {
+    
     let handleFileChange = (file) => {
         props.handleFileChange(file);
        
@@ -12,9 +13,10 @@ const Filepicker = (props) => {
         <div className={s.Filepicker_wrapper}>
             <FilePicker
                 extensions={['docx', 'txt']}
-                //   onChange={FileObject => ()}
+                
+                
                 onChange={handleFileChange}
-                onError={errMsg => console.log(errMsg)}
+                onError={errMsg => alert(errMsg)}
             >
                 <button className={s.filepicker_button}>Загрузить</button>
             </FilePicker>
@@ -23,8 +25,8 @@ const Filepicker = (props) => {
 
     )
 }
-export default Filepicker;*/
-import React from 'react'
+export default Filepicker;
+/*import React from 'react'
 import { post } from 'axios';
 import s from '../HomePage.module.css';
 
@@ -64,4 +66,4 @@ class UploadForm extends React.Component {
         );
     }
 }
-export default UploadForm;
+export default UploadForm;*/

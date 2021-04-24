@@ -1,6 +1,8 @@
 ﻿import React from 'react';
 import { connect } from 'react-redux';
 import s from '../HomePage.module.css';
+import { setCurrentText, setCurrentKey } from '../../../redux/textarea-reducer.js';
+
 const DecryptForm = (props) => {
     let getText = React.createRef();
     let getOutputText = React.createRef();
@@ -22,11 +24,11 @@ const DecryptForm = (props) => {
         e.preventDefault();
     }
     return (
-        <form className={s.Form_wrapper}>
+        <form onSubmit={onDecrypt } className={s.Form_wrapper}>
             <textarea ref={getText} onChange={onTextChange} placeholder="Введите текст для расшифровки" className={s.Form_wrapper__textarea} value={props.currentText} />
             <input ref={getKey} onChange={onInputChange} type="text" placeholder="Введите ключ" className={s.Form_wrapper__input} value={props.currentDecryptKey} />
             <textarea readOnly={ true} ref={getOutputText} placeholder="Расшифрованный текст здесь" className={s.Form_wrapper__textarea} value={outputText} />
-            <button className={s.filepicker_button} onClick={onDecrypt} type="submit">Расшифровать</button>
+            <button className={s.filepicker_button} type="submit">Расшифровать</button>
         </form>
     );
 
@@ -34,7 +36,6 @@ const DecryptForm = (props) => {
 class DecryptFormClass extends React.Component {
     constructor(props) {
         super(props);
-        this.state = { currentText: "", currentDecryptKey: "" ,outputText:""};
         this.setCurrentText = this.setCurrentText.bind(this);
         this.setCurrentKey = this.setCurrentKey.bind(this);
         this.setInitialised = this.setInitialised.bind(this);
@@ -42,40 +43,31 @@ class DecryptFormClass extends React.Component {
     
     
     setCurrentText(textContent) {
+      
         let text = textContent;
-        this.setState({
-            currentText: text
-        });
-    }
-   
-    componentDidMount() {
-        this.state.outputText = this.props.appReducer.text;
-    }
-    
-    componentDidUpdate() {
-        
-        
+        this.props.setCurrentText(text);
     }
     setCurrentKey(inputContent) {
         let key = inputContent;
-        this.setState({
-            currentDecryptKey: key
-        });
+        this.props.setCurrentKey(key);
     }
+
     async setInitialised() {
-        
-        await this.props.setInit();
-        this.state.outputText = this.props.appReducer.text; 
-        
+        let text = this.props.textareaReducer.currentText;
+        let key = this.props.textareaReducer.currentKey;
+        await this.props.setInit(text, key);
     }
+    
     render() {
-        return (<DecryptForm outputText={this.state.outputText} setInitialised={this.setInitialised} setCurrentText={this.setCurrentText} currentText={this.state.currentText} setCurrentKey={this.setCurrentKey} currentDecryptKey={this.state.currentDecryptKey} />
-            )
+        return (<DecryptForm outputText={this.props.appReducer.decrypted}
+            currentText={this.props.textareaReducer.currentText} currentDecryptKey={this.props.textareaReducer.currentKey}
+            setInitialised={this.setInitialised} setCurrentText={this.setCurrentText} setCurrentKey={this.setCurrentKey} />)
     }
 }
 let mapStateToProps = (state) => ({
 
-    appReducer: state.appInit
+    appReducer: state.appInit,
+    textareaReducer: state.textareaReducer
 });
-export default connect(mapStateToProps, {})(DecryptFormClass);
+export default connect(mapStateToProps, { setCurrentText, setCurrentKey })(DecryptFormClass);
 
