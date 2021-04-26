@@ -1,7 +1,7 @@
 ﻿import React from 'react';
 import s from './HomePage.module.css';
 import Filepicker from './FilePicker/FilePicker.jsx';
-import DecryptForm from './DecryptForm/DecryptForm.jsx';
+import DecryptForm from './CryptForm/DecryptForm.jsx';
 const HomePage = (props) => {
     let appState = props.appReducer;
     return (

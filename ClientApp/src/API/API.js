@@ -17,12 +17,12 @@ export const fileApi = {
             
         }
     },
-    setFile(text, key) {
+    setFile(text, key,title, direcrion) {
         try {
             
-            //return instance.post(`/${text}`);
+           
             
-            return instance.post(`/`, {"text":text, "title":"", "key":key, "decrypted":"" } );
+            return instance.post(`/`, { "text": text, "title": title, "key": key, "decrypted": "", "cryptDirection": direcrion } );
         }
         catch (e) {
             console.log(e);

@@ -11,5 +11,6 @@ namespace nyssKursovoyReact
         public  string Title { get; set; } = "";
         public  string Key { get; set; } = "";
         public  string Decrypted { get; set; } = "";
+        public bool CryptDirection { get; set; } = false;
     }
 }

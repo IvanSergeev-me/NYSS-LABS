@@ -62,6 +62,8 @@ namespace nyssKursovoyReact
             app.UseCors("DefPolicy");
             app.UseEndpoints(endpoints =>
             {
+               
+                endpoints.MapControllers();
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller}/{action=Index}/{id?}");
@@ -78,20 +80,6 @@ namespace nyssKursovoyReact
             });
            
         }
-        /*[HttpPost]
-        public async Task<IActionResult> AddFile(Microsoft.AspNetCore.Http.IFormFile uploadedFile)
-        {
-            if (uploadedFile != null)
-            {
-               
-                using (var fileStream = new FileStream("semen", FileMode.OpenOrCreate))
-                {
-                    await uploadedFile.CopyToAsync(fileStream);
-                }
-               
-            }
-
-            return RedirectToAction("Index");
-        }*/
+       
     }
 }

@@ -17,7 +17,7 @@ namespace nyssKursovoyReact.Controllers
     [Route("[controller]")]
     public class DecryptController : ControllerBase
     {
-        //public static string test = "start";
+       
 
         private readonly ILogger<DecryptController> _logger;
 
@@ -28,10 +28,11 @@ namespace nyssKursovoyReact.Controllers
 
        
         [HttpPost]
-        //[Route("{id:Guid}")]
+       
         public async Task<IActionResult> Post([FromBody] FileModel body)
         {
-            body.Decrypted = Decrypt(body.Text, body.Key);
+            
+            body.Decrypted = GetCrypted(body.Text, body.Key, body.CryptDirection);
             string jsonRequest = JsonSerializer.Serialize(body);
             
 
@@ -41,7 +42,7 @@ namespace nyssKursovoyReact.Controllers
            
         }
 
-        private string Decrypt(string text, string key)
+        private string GetCrypted(string text, string key, bool cryptDirection)
         {
 
             string alphabet = "АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ";
@@ -54,11 +55,22 @@ namespace nyssKursovoyReact.Controllers
                 if (alphabet.Contains(symbol.ToString().ToUpper()))
                 {
                     bool isUpper = char.IsUpper(symbol);
-                    char letter = Char.ToUpper(symbol);
+                    char letter = char.ToUpper(symbol);
                     int charPosition = alphabet.IndexOf(letter);
                     int keyPosition = alphabet.IndexOf(key[position]);
-                    int dectyptedCharPosition = charPosition - keyPosition;
-                    if (dectyptedCharPosition < 0) dectyptedCharPosition += 33;
+                    int dectyptedCharPosition;
+                    //При расшифровке - вычитаем по модулю 33
+                    //При шифровании - складываем по модулю 33
+                    if (cryptDirection) {
+                        dectyptedCharPosition = charPosition + keyPosition;
+                        if (dectyptedCharPosition >= 33) dectyptedCharPosition -= 33;
+                    }
+                    else
+                    {
+                        dectyptedCharPosition = charPosition - keyPosition;
+                        if (dectyptedCharPosition < 0) dectyptedCharPosition += 33;
+                    }
+                    
                     if (isUpper) retValue += alphabet[dectyptedCharPosition];
                     else retValue += char.ToLower(alphabet[dectyptedCharPosition]);
                     //Покрываем все буквы текста ключем,

@@ -11,18 +11,19 @@ class HomePageComponent extends React.Component {
     constructor(props) {
         super(props);
     }
-    extractWordRawText = arrayBuffer => {
-
-        /*mammoth.extractRawText({ arrayBuffer })
+    extractWordRawText = (arrayBuffer,file_name) => {
+        //console.log(arrayBuffer);
+        mammoth.extractRawText({ arrayBuffer })
             .then(result => {
-                const text = result.value; // The raw text
-                const messages = result.messages; // Please handle messages
-                this.setState({ text });
+                 const html = result.value; 
+                //console.log(html);
+                const messages = result.messages; 
+                //console.log(messages);
+                this.props.setUploadedFile({ Text: html, Title: file_name, Key: "", Decrypted: "" });
+                this.props.setCurrentText(html);
+                
             })
-            .done();*/
-        
-        //console.log( String.fromCharCode.apply(null, new Uint8Array(arrayBuffer)));
-        
+            .done(); 
     };
    
     handleFileChange = file => {
@@ -48,19 +49,26 @@ class HomePageComponent extends React.Component {
                 if (bytes) {
                    
                     this.props.setUploadedFile({ Text: bytes, Title: file_name, Key: "", Decrypted: "" });
-                    this.isFilePicked = true;
                     this.props.setCurrentText(bytes);
                 };
                
                 //this.extractWordRawText(bytes);
             };
-        };
+        }
+        else {
+            console.log(file_type);
+            reader.readAsArrayBuffer(file);
+            reader.onload = e => {
+                let bytes = e.target.result;
+                this.extractWordRawText(bytes, file_name);
+            }
+        }
         
        
     };
-    setInit = (text, key) => {
-       // alert(text + "eeeee" +key);
-        this.props.postFile(text, key);
+    setInit = (text, key, title, direction) => {
+       
+        this.props.postFile(text, key,title,direction);
       
         
         
