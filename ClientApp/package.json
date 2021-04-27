@@ -5,6 +5,8 @@
   "dependencies": {
     "axios": "^0.21.1",
     "bootstrap": "^4.1.3",
+    "browser-fs-access": "^0.16.4",
+    "file-saver": "^2.0.5",
     "jquery": "^3.5.1",
     "mammoth": "^1.4.16",
     "merge": "^1.2.1",

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Route } from 'react-router';
 import { Layout } from './components/Layout';
-import { Home } from './components/Home';
+import HomePageComponent from './components/HomePage/HomePageComponent.jsx';
 import { connect } from 'react-redux';
 
 import './custom.css'
@@ -13,8 +13,8 @@ import EncryptForm from './components/HomePage/CryptForm/EncryptForm';
   render () {
     return (
       <Layout>
-        <Route exact path='/' component={Home} />
-        <Route path='/Encrypt' component={EncryptForm} />
+            <Route exact path='/:CryptType?' component={HomePageComponent} />
+        
       </Layout>
     );
   }

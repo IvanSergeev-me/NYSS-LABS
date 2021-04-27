@@ -41,13 +41,13 @@
     box-shadow: 0 0 10px rgba(0,0,0,0.5);
     transition-property: all;
 }
-.filepicker_button_encrypt {
+.form_button_encrypt {
     margin-top: 1em;
     width: 30%;
     text-align: center;
     outline: none !important;
     border: none;
-    background: #FC2847;
+    background: #B00000;
     color: white;
     border-radius: 1em;
     padding: 1em;
@@ -55,6 +55,10 @@
     font-size: 1.1em;
     box-shadow: 0 0 10px rgba(0,0,0,0.5);
     transition-property: all;
+}
+.form_button_encrypt:hover {
+        transition: 0.3s;
+        background: #FC2847;
 }
 .filepicker_input {
     margin-top: 1em;
@@ -93,14 +97,30 @@
     padding:1em;
    
 }
-.Form_wrapper{
+.Form_wrapper__buttons{
     display:flex;
-    flex-direction:column;
-    align-items:center;
+    width: 100%;
+    justify-content:space-evenly;
+}
+.Form_wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 .textarea__output {
     color: #008000!important;
 }
 .textarea__output_encrypt {
     color: #FC2847!important;
+}
+@media(max-width:980px){
+    .filepicker_button {
+        width: 100%;
+    }
+    .form_button_encrypt{
+        width:100%;
+    }
+    .Form_wrapper__buttons{
+        flex-direction:column;
+    }
 }

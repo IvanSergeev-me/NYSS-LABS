@@ -8,7 +8,7 @@ let initialState = {
     text: "",
     title: "",
     key:"",
-    decrypted: ""
+    decrypted: "dawdawd"
     
     
 };
