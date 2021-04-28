@@ -83,24 +83,6 @@ namespace nyssKursovoyReact.Controllers
             return retValue;
 
         }
-        
-        /*[HttpPost]
-        [Route("{id:Guid}")]
-        public async Task<IActionResult> Post([FromRoute] Guid id, [FromForm] IFormFile body)
-        {
-            byte[] fileBytes;
-            using (var memoryStream = new MemoryStream())
-            {
-                await body.CopyToAsync(memoryStream);
-                fileBytes = memoryStream.ToArray();
-            }
 
-            var filename = body.FileName;
-            var contentType = body.ContentType;
-
-
-
-            return Ok(filename + " "+ contentType);
-        }*/
     }
 }

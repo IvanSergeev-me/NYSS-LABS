@@ -34,7 +34,7 @@ const EncryptForm = (props) => {
             <input spellCheck="false" ref={getKey} onChange={onInputChange} type="text" placeholder="Введите ключ" className={s.Form_wrapper__input} value={props.currentDecryptKey} />
             <textarea spellCheck="false" readOnly={true} ref={getOutputText} placeholder="Зашифрованный текст здесь" className={s.Form_wrapper__textarea + " " + s.textarea__output_encrypt} value={outputText} />
             <div className={s.Form_wrapper__buttons}>
-                <button className={s.form_button_encrypt} type="submit">Расшифровать</button>
+                <button className={s.form_button_encrypt} type="submit">Зашифровать</button>
                 <button onClick={onSave} className={s.form_button_encrypt}>Сохранить результат</button>
             </div>
         </form>

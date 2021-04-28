@@ -1,16 +1,11 @@
 ﻿import React from 'react';
 import HomePage from './HomePage.jsx';
 import mammoth from "mammoth";
-import FileSaver from 'file-saver';
 import { connect } from 'react-redux';
 import { postFile, setUploadedFile } from '../../redux/app-reducer.js';
 import { setCurrentText } from '../../redux/textarea-reducer.js';
-import {
-    fileOpen,
-    directoryOpen,
-    fileSave,
-    supported,
-} from 'browser-fs-access';
+import { Document, Packer, Paragraph, TextRun } from "docx";
+import { fileSave} from 'browser-fs-access';
 
 
 class HomePageComponent extends React.Component {
@@ -52,20 +47,14 @@ class HomePageComponent extends React.Component {
            
             reader.onload = e => {
                 let bytes = e.target.result;
-             
-                
                 if (!/[А-я]/.test(bytes)) {
                     reader.readAsText(file, 'CP1251');
                     bytes = e.target.result;
-                   
                 }
                 if (bytes) {
-                   
                     this.props.setUploadedFile({ Text: bytes, Title: file_name, Key: "", Decrypted: "" });
                     this.props.setCurrentText(bytes);
                 };
-               
-                //this.extractWordRawText(bytes);
             };
         }
         else {
@@ -79,42 +68,36 @@ class HomePageComponent extends React.Component {
         
        
     };
-    saveFile =()=> {
-        
-       
-     /*
-        var blob = new Blob([this.props.appReducer.decrypted], { type: "text/plain;charset=utf-8" });
-        const options = {
-
-            extensions: ['.txt', '.docx',],
-
-            fileName: 'aboba.txt'
-        };
-        const throwIfExistingHandleNotGood = true;
-        fileSave(blob, options, null, throwIfExistingHandleNotGood);*/
-       // var blob = new Blob([this.props.appReducer.decrypted], { type: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' });
-        //var file = new File([this.props.appReducer.decrypted], "hello world.docx", { type: "application/msword" });
-       // FileSaver.saveAs(file);
+    saveFile = (async () => {
         let mswordType = 'application/msword';
-        let txtType = 'text/plain';
-        var data = new Blob([this.props.appReducer.decrypted], { type:mswordType});
-        /*var textFile = window.URL.createObjectURL(data);
-        if (document.getElementById('download') !== null) {
-            document.body.removeChild(document.getElementById('download'));
+        let isTxt = /.txt$/.test(this.props.appReducer.title)
+        if (isTxt) {
+            var data = await new Blob([this.props.appReducer.decrypted], { type: mswordType });
+            const options = { extensions: ['.txt', '.doc'] }
+            await fileSave(data, options);
         }
-        var a = document.createElement("a");
-        a.setAttribute("id", "download");
-        a.setAttribute("href", textFile);
-        a.setAttribute("download", "filename");
-        a.click();
-        document.body.appendChild(a);*/
-        const options = { extensions: ['.txt', '.doc']}
-        fileSave(data, options);
-    
-        
-        
-  
-    }
+        else {
+            const doc = await new Document({
+                sections: [{
+                    properties: {},
+                    children: [
+                        new Paragraph({
+                            children: [
+                                new TextRun(this.props.appReducer.decrypted),
+                               
+                            ],
+                        }),
+                    ],
+                }]
+            });
+            await Packer.toBlob(doc).then((blob) => {
+                const options = { extensions: ['.docx'] }
+               
+                 fileSave(blob, options);
+                 
+            });
+        }
+    });
     setInit = (text, key, title, direction) => {
        
         this.props.postFile(text, key,title,direction); 
@@ -123,7 +106,6 @@ class HomePageComponent extends React.Component {
         return (
             <HomePage saveFile={this.saveFile} params={this.props.match.params.CryptType} appReducer={this.props.appReducer} handleFileChange={this.handleFileChange} extractWordRawText={this.extractWordRawText} setInit={this.setInit} />
         );
-
     }
 
 }
